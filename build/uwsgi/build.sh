@@ -27,10 +27,9 @@ DESC="uwsgi - $SUMMARY"
 #https://projects.unbit.it/downloads/uwsgi-2.0.20.tar.gz
 ARCHIVE_TYPES="tar.gz"
 set_mirror "https://projects.unbit.it"
-set_chechsum "none"
+set_checksum sha256 "88ab9867d8973d8ae84719cf233b7dafc54326fcaec89683c3f9f77c002cdff9"
 
 set_arch 64
-configure64() { : }
 
 build() {
   python uwsgiconfig.py --build core
@@ -45,6 +44,7 @@ build() {
 
 init
 download_source "downloads" $PROG $VER
+patch_source
 prep_build
 build
 make_package
