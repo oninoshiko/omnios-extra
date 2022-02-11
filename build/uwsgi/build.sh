@@ -21,12 +21,13 @@ VER=2.0.20
 PKG=ooce/server/uwsgi
 SUMMARY="fast, self-healing application container server"
 DESC="uwsgi - $SUMMARY"
+ARCHIVE_TYPES="tar.gz"
 
 [ $RELVER -lt 151030 ] && exit 0
 
 #https://projects.unbit.it/downloads/uwsgi-2.0.20.tar.gz
-set_mirror "https://projects.unbit.it/"
-set_chechsum "none"
+set_mirror "https://projects.unbit.it"
+#set_chechsum "none"
 set_arch 64
 
 init
