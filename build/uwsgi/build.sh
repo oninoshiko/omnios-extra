@@ -25,7 +25,8 @@ DESC="uwsgi - $SUMMARY"
 [ $RELVER -lt 151030 ] && exit 0
 
 #https://projects.unbit.it/downloads/uwsgi-2.0.20.tar.gz
-set_mirror = "https://projects.unbit.it/"
+set_mirror "https://projects.unbit.it/"
+set_chechsum "none"
 set_arch 64
 
 init
