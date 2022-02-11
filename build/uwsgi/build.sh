@@ -36,7 +36,6 @@ build() {
   python uwsgiconfig.py --build core || logerr "Build failed: core"
   python uwsgiconfig.py --plugin plugins/python core || logerr "Build plugin failed: python"
   python uwsgiconfig.py --plugin plugins/psgi core || logerr "Build plugin failed: psgi"
-  python uwsgiconfig.py --plugin plugins/php core || logerr "Build plugin failed: php"
   python uwsgiconfig.py --plugin plugins/http core || logerr "Build plugin failed: http"
   python uwsgiconfig.py --plugin plugins/cgi core || logerr "Build plugin failed: cgi"
   python uwsgiconfig.py --plugin plugins/syslog core || logerr "Build plugin failed: syslog"
