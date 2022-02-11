@@ -33,14 +33,14 @@ set_arch 64
 
 build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
-  python uwsgiconfig.py --build core
-  python uwsgiconfig.py --plugin plugins/python core
-  python uwsgiconfig.py --plugin plugins/psgi core
-  python uwsgiconfig.py --plugin plugins/php core
-  python uwsgiconfig.py --plugin plugins/http core
-  python uwsgiconfig.py --plugin plugins/cgi core
-  python uwsgiconfig.py --plugin plugins/syslog core
-  python uwsgiconfig.py --plugin plugins/rsyslog core
+  python uwsgiconfig.py --build core || logerr "Build failed: core"
+  python uwsgiconfig.py --plugin plugins/python core || logerr "Build plugin failed: python"
+  python uwsgiconfig.py --plugin plugins/psgi core || logerr "Build plugin failed: psgi"
+  python uwsgiconfig.py --plugin plugins/php core || logerr "Build plugin failed: php"
+  python uwsgiconfig.py --plugin plugins/http core || logerr "Build plugin failed: http"
+  python uwsgiconfig.py --plugin plugins/cgi core || logerr "Build plugin failed: cgi"
+  python uwsgiconfig.py --plugin plugins/syslog core || logerr "Build plugin failed: syslog"
+  python uwsgiconfig.py --plugin plugins/rsyslog core || logerr "Build plugin failed: rsyslog"
   popd >/dev/null
 }
 
