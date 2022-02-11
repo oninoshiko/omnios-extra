@@ -32,6 +32,7 @@ set_checksum sha256 "88ab9867d8973d8ae84719cf233b7dafc54326fcaec89683c3f9f77c002
 set_arch 64
 
 build() {
+  pushd $TMPDIR/$BUILDDIR >/dev/null
   python uwsgiconfig.py --build core
   python uwsgiconfig.py --plugin plugins/python core
   python uwsgiconfig.py --plugin plugins/psgi core
@@ -40,6 +41,7 @@ build() {
   python uwsgiconfig.py --plugin plugins/cgi core
   python uwsgiconfig.py --plugin plugins/syslog core
   python uwsgiconfig.py --plugin plugins/rsyslog core
+  popd >/dev/null
 }
 
 init
