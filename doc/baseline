@@ -182,6 +182,7 @@ extra.omnios ooce/server/haproxy
 extra.omnios ooce/server/nginx
 extra.omnios ooce/server/nginx-120
 extra.omnios ooce/server/nginx-common
+extra.omnios ooce/server/uwsgi
 extra.omnios ooce/storage/minio
 extra.omnios ooce/storage/minio-mc
 extra.omnios ooce/system/clamav
