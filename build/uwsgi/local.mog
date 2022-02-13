@@ -1,1 +1,17 @@
+group groupname=$(PROG) gid=98
+user ftpuser=false username=$(PROG) gid=98 group=$(PROG) \
+  gcos-field="uwsgi Reserved ID" \
+  home-dir=/var/$(PREFIX) password=NP
+
+<transform path=etc/$(PREFIX) -> set owner $(PROG)>
+<transform path=etc/$(PREFIX) -> set group $(PROG)>
+<transform file path=etc/$(PREFIX) -> set mode 0600>
+<transform file path=etc/$(PREFIX) -> set preserve true>
+
+<transform dir path=var/$(PREFIX) -> set owner $(PROG)>
+<transform dir path=var/$(PREFIX) -> set group $(PROG)>
+
+<transform dir path=var/log/$(PREFIX) -> set owner $(PROG)>
+<transform dir path=var/log/$(PREFIX) -> set group $(PROG)>
+
 license LICENSE license=GPLv2

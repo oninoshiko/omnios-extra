@@ -12,7 +12,7 @@
 # http://www.illumos.org/license/CDDL.
 # }}}
 #
-# Copyright 2022 A Hettinger (oninoshiko@gmail.com)
+# Copyright 2022 A Hettinger (ahettinger@prominic.net)
 
 . ../../lib/build.sh
 
@@ -30,6 +30,20 @@ set_mirror "https://projects.unbit.it"
 set_checksum sha256 "88ab9867d8973d8ae84719cf233b7dafc54326fcaec89683c3f9f77c002cdff9"
 
 set_arch 64
+
+
+OPREFIX=$PREFIX
+PREFIX+=/$PROG
+CONFPATH=/etc$PREFIX
+LOGPATH=/var/log$PREFIX
+VARPATH=/var$PREFIX
+RUNPATH=$VARPATH/run
+
+XFORM_ARGS="
+    -DPREFIX=${PREFIX#/}
+    -DOPREFIX=${OPREFIX#/}
+    -DPROG=$PROG
+"
 
 build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
