@@ -30,7 +30,10 @@ set_mirror "https://projects.unbit.it"
 set_checksum sha256 "88ab9867d8973d8ae84719cf233b7dafc54326fcaec89683c3f9f77c002cdff9"
 
 set_arch 64
-
+BUILD_DEPENDS_IPS+="
+  runtime/python-27
+  runtime/python-39
+"
 
 OPREFIX=$PREFIX
 PREFIX+=/$PROG
@@ -47,13 +50,21 @@ XFORM_ARGS="
 
 build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
-  python uwsgiconfig.py --build core || logerr "Build failed: core"
-  python uwsgiconfig.py --plugin plugins/python core || logerr "Build plugin failed: python"
-  python uwsgiconfig.py --plugin plugins/psgi core || logerr "Build plugin failed: psgi"
-  python uwsgiconfig.py --plugin plugins/http core || logerr "Build plugin failed: http"
-  python uwsgiconfig.py --plugin plugins/cgi core || logerr "Build plugin failed: cgi"
-  python uwsgiconfig.py --plugin plugins/syslog core || logerr "Build plugin failed: syslog"
-  python uwsgiconfig.py --plugin plugins/rsyslog core || logerr "Build plugin failed: rsyslog"
+  logmsg "Building uwsgi"
+  python uwsgiconfig.py --build nolang || logerr "Build core failed"
+  python uwsgiconfig.py --plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
+  python uwsgiconfig.py --plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
+  python uwsgiconfig.py --plugin plugins/psgi nolang || logerr "Build plugin failed: psgi"
+  python uwsgiconfig.py --plugin plugins/http nolang || logerr "Build plugin failed: http"
+  python uwsgiconfig.py --plugin plugins/cgi nolang || logerr "Build plugin failed: cgi"
+  python uwsgiconfig.py --plugin plugins/syslog nolang || logerr "Build plugin failed: syslog"
+  python uwsgiconfig.py --plugin plugins/rsyslog nolang || logerr "Build plugin failed: rsyslog"
+
+  logmsg "Installing uwsgi"
+  logcmd mkdir $DESTDIR/$PREFIX
+  logcmd mkdir $DESTDIR/lib/$PREFIX
+  logcmd cp -r $TEMPDIR/$BUILDDIR/bin $DESTDIR/$PREFIX || logerr "Install of core failed"
+  logcmd cp -r $TEMPDIR/$BUILDDIR/*_plugin.so $DESTDIR/lib/$PREFIX || logerr "Install of plugins failed"
   popd >/dev/null
 }
 
