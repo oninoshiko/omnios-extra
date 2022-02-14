@@ -52,8 +52,8 @@ build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
   logmsg "Building uwsgi"
   python uwsgiconfig.py --build nolang || logerr "Build core failed"
-  python uwsgiconfig.py --plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
-  python uwsgiconfig.py --plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
+  PYTHON=python2.7 ./uwsgi --build-plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
+  PYTHON=python3.9 ./uwsgi --build-plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
   python uwsgiconfig.py --plugin plugins/psgi nolang || logerr "Build plugin failed: psgi"
   python uwsgiconfig.py --plugin plugins/http nolang || logerr "Build plugin failed: http"
   python uwsgiconfig.py --plugin plugins/cgi nolang || logerr "Build plugin failed: cgi"
