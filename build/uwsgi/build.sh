@@ -51,6 +51,7 @@ XFORM_ARGS="
 build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
   logmsg "Building uwsgi"
+  UWSGI_INCLUDES=$TMPDIR/$BUILDDIR,$TMPDIR/$BUILDDIR/bin
   python uwsgiconfig.py --build nolang || logerr "Build core failed"
   PYTHON=python2.7 ./uwsgi --build-plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
   PYTHON=python3.9 ./uwsgi --build-plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
