@@ -51,10 +51,9 @@ XFORM_ARGS="
 build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
   logmsg "Building uwsgi"
-  #UWSGI_INCLUDES=$TMPDIR/$BUILDDIR,$TMPDIR/$BUILDDIR/bin
   python uwsgiconfig.py --build nolang || logerr "Build core failed"
-  PYTHON=python2.7 ./uwsgi --build-plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
-  PYTHON=python3.9 ./uwsgi --build-plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
+  PYTHON=python2.7 bin/uwsgi --build-plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
+  PYTHON=python3.9 bin/uwsgi --build-plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
   python uwsgiconfig.py --plugin plugins/psgi nolang || logerr "Build plugin failed: psgi"
   python uwsgiconfig.py --plugin plugins/http nolang || logerr "Build plugin failed: http"
   python uwsgiconfig.py --plugin plugins/cgi nolang || logerr "Build plugin failed: cgi"
@@ -62,9 +61,9 @@ build() {
   python uwsgiconfig.py --plugin plugins/rsyslog nolang || logerr "Build plugin failed: rsyslog"
 
   logmsg "Installing uwsgi"
-  logcmd mkdir -p $DESTDIR/$PREFIX
+  logcmd mkdir -p $DESTDIR/$PREFIX/bin
   logcmd mkdir -p $DESTDIR/$PREFIX/lib
-  logcmd cp -r $TMPDIR/$BUILDDIR/bin $DESTDIR/$PREFIX || logerr "Install of core failed"
+  logcmd cp -r $TMPDIR/$BUILDDIR/uwsgi $DESTDIR/$PREFIX/bin || logerr "Install of core failed"
   logcmd cp -r $TMPDIR/$BUILDDIR/*_plugin.so $DESTDIR/$PREFIX/lib || logerr "Install of plugins failed"
   popd >/dev/null
 }
