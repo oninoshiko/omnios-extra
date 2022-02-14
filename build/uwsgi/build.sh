@@ -61,8 +61,8 @@ build() {
   python uwsgiconfig.py --plugin plugins/rsyslog nolang || logerr "Build plugin failed: rsyslog"
 
   logmsg "Installing uwsgi"
-  logcmd mkdir $DESTDIR/$PREFIX
-  logcmd mkdir $DESTDIR/lib/$PREFIX
+  logcmd mkdir -p $DESTDIR/$PREFIX
+  logcmd mkdir -p $DESTDIR/lib/$PREFIX
   logcmd cp -r $TEMPDIR/$BUILDDIR/bin $DESTDIR/$PREFIX || logerr "Install of core failed"
   logcmd cp -r $TEMPDIR/$BUILDDIR/*_plugin.so $DESTDIR/lib/$PREFIX || logerr "Install of plugins failed"
   popd >/dev/null
