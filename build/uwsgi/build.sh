@@ -63,8 +63,8 @@ build() {
   logmsg "Installing uwsgi"
   logcmd mkdir -p $DESTDIR/$PREFIX
   logcmd mkdir -p $DESTDIR/lib/$PREFIX
-  logcmd cp -r $TEMPDIR/$BUILDDIR/bin $DESTDIR/$PREFIX || logerr "Install of core failed"
-  logcmd cp -r $TEMPDIR/$BUILDDIR/*_plugin.so $DESTDIR/lib/$PREFIX || logerr "Install of plugins failed"
+  logcmd cp -r $TMPDIR/$BUILDDIR/bin $DESTDIR/$PREFIX || logerr "Install of core failed"
+  logcmd cp -r $TMPDIR/$BUILDDIR/*_plugin.so $DESTDIR/lib/$PREFIX || logerr "Install of plugins failed"
   popd >/dev/null
 }
 
