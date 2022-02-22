@@ -33,10 +33,6 @@ set_arch 64
 BUILD_DEPENDS_IPS+="
   runtime/python-27
   runtime/python-39
-  ooce/application/php-73
-  ooce/application/php-74
-  ooce/application/php-80
-  ooce/application/php-81
 "
 
 OPREFIX=$PREFIX
@@ -66,10 +62,6 @@ build() {
   python uwsgiconfig.py --build nolang || logerr "Build core failed"
   PYTHON=python2.7 ./uwsgi --build-plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
   PYTHON=python3.9 ./uwsgi --build-plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
-  UWSGICONFIG_PHPPATH=/opt/ooce/php-7.3/bin/php-config ./uwsgi --build-plugin "plugins/php php73" nolang || logerr "Build plugin failed: php73"
-  UWSGICONFIG_PHPPATH=/opt/ooce/php-7.4/bin/php-config ./uwsgi --build-plugin "plugins/php php74" nolang || logerr "Build plugin failed: php74"
-  UWSGICONFIG_PHPPATH=/opt/ooce/php-8.0/bin/php-config ./uwsgi --build-plugin "plugins/php php80" nolang || logerr "Build plugin failed: php80"
-  UWSGICONFIG_PHPPATH=/opt/ooce/php-8.1/bin/php-config ./uwsgi --build-plugin "plugins/php php81" nolang || logerr "Build plugin failed: php81"
   python uwsgiconfig.py --plugin plugins/psgi nolang || logerr "Build plugin failed: psgi"
   python uwsgiconfig.py --plugin plugins/http nolang || logerr "Build plugin failed: http"
   python uwsgiconfig.py --plugin plugins/cgi nolang || logerr "Build plugin failed: cgi"
