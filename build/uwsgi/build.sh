@@ -33,6 +33,10 @@ set_arch 64
 BUILD_DEPENDS_IPS+="
   runtime/python-27
   runtime/python-39
+  ooce/application/php-73
+  ooce/application/php-74
+  ooce/application/php-80
+  ooce/application/php-81
 "
 
 OPREFIX=$PREFIX
@@ -49,7 +53,7 @@ XFORM_ARGS="
 "
 
 check_rtime() {
-  logmsg "check_rtime bypassed "
+  logmsg "check_rtime bypassed"
 }
 
 check_ssp(){
@@ -62,6 +66,10 @@ build() {
   python uwsgiconfig.py --build nolang || logerr "Build core failed"
   PYTHON=python2.7 ./uwsgi --build-plugin "plugins/python python27" nolang || logerr "Build plugin failed: python27"
   PYTHON=python3.9 ./uwsgi --build-plugin "plugins/python python39" nolang || logerr "Build plugin failed: python39"
+  UWSGICONFIG_PHPDIR=/opt/ooce/php-7.3 ./uwsgi --build-plugin "plugins/php php73" nolang || logerr "Build plugin failed: php73"
+  UWSGICONFIG_PHPDIR=/opt/ooce/php-7.4 ./uwsgi --build-plugin "plugins/php php74" nolang || logerr "Build plugin failed: php74"
+  UWSGICONFIG_PHPDIR=/opt/ooce/php-8.0 ./uwsgi --build-plugin "plugins/php php80" nolang || logerr "Build plugin failed: php80"
+  UWSGICONFIG_PHPDIR=/opt/ooce/php-8.1 ./uwsgi --build-plugin "plugins/php php81" nolang || logerr "Build plugin failed: php81"
   python uwsgiconfig.py --plugin plugins/psgi nolang || logerr "Build plugin failed: psgi"
   python uwsgiconfig.py --plugin plugins/http nolang || logerr "Build plugin failed: http"
   python uwsgiconfig.py --plugin plugins/cgi nolang || logerr "Build plugin failed: cgi"
@@ -81,7 +89,7 @@ download_source "downloads" $PROG $VER
 patch_source
 prep_build
 build
-make_package
+make_package '' final.mog
 clean_up
 
 # Vim hints
