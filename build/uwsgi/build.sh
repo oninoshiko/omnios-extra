@@ -90,7 +90,7 @@ for file in $DESTDIR/$PREFIX/lib/*.so; do
   manifest_finalise $TMPDIR/manifest.$PROG-$basename $OPREFIX
   PKG=$PKG-$basename make_package -seed $TMPDIR/manifest.$PROG-$basename
 done
-manifest_uniq $TMPDIR/manifset.* $TMPDIR/manifest.$PROG-core
+manifest_uniq $TMPDIR/manifest.$PROG-core $TMPDIR/manifset.*
 manifest_finalise $TMPDIR/manifest.$PROG-core
 make_package -seed $TMPDIR/manifest.$PROG-core core.mog
 
