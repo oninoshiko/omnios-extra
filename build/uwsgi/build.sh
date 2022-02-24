@@ -81,7 +81,18 @@ download_source "downloads" $PROG $VER
 patch_source
 prep_build
 build
-make_package '' final.mog
+
+for file in $DESTDIR/$PREFIX/lib; do
+  basename=$(basename $file .so)
+  manifest_start $TMPDIR/manifest.$PROG-$basename
+  manifest_add $file
+  manifest_finalise $TMPDIR/manifest.$PROG-$basename $OPREFIX
+  PKG=$PKG-$basename make_package -seed $TMPDIR/manifest.$PROG-$basename
+done
+manifest_uniq $TMPDIR/manifset.* $TMPDIR/manifest.$PROG-core
+manifest_finalise $TMPDIR/manifest.$PROG-core
+make_package -seed $TMPDIR/manifest.$PROG-core core.mog
+
 clean_up
 
 # Vim hints
