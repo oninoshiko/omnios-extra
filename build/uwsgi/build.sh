@@ -84,9 +84,9 @@ build
 
 for file in $DESTDIR/$PREFIX/lib/*.so; do
   basename=$(basename $file .so)
-  logmsg "building $PROG-$basename"
+  logmsg "building $PROG-$basename from $file"
   manifest_start $TMPDIR/manifest.$PROG-$basename
-  manifest_add $file
+  manifest_add $DESTDIR/$PREFIX/lib $basename.so
   manifest_finalise $TMPDIR/manifest.$PROG-$basename $OPREFIX
   PKG=$PKG-$basename make_package -seed $TMPDIR/manifest.$PROG-$basename
 done
