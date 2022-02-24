@@ -82,7 +82,7 @@ patch_source
 prep_build
 build
 
-for file in $DESTDIR/$PREFIX/lib/; do
+for file in $DESTDIR/$PREFIX/lib/*.so; do
   basename=$(basename $file .so)
   logmsg "building $PROG-$basename"
   manifest_start $TMPDIR/manifest.$PROG-$basename
