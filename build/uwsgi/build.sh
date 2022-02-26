@@ -42,19 +42,14 @@ LOGPATH=/var/log$PREFIX
 VARPATH=/var$PREFIX
 RUNPATH=$VARPATH/run
 
+SKIP_RTIME_CHECK = 1
+SKIP_SSP_CHECK = 1
+
 XFORM_ARGS="
     -DPREFIX=${PREFIX#/}
     -DOPREFIX=${OPREFIX#/}
     -DPROG=$PROG
 "
-
-check_rtime() {
-  logmsg "check_rtime bypassed"
-}
-
-check_ssp(){
-  logmsg "check_ssp bypassed"
-}
 
 build() {
   pushd $TMPDIR/$BUILDDIR >/dev/null
