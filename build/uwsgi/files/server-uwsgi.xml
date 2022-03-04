@@ -95,10 +95,10 @@ CDDL HEADER END
                             type="application">
                 <propval name="file"
                          type="astring"
-                         value="/etc/$(PREFIX)/uwsgi.ini" />
+                         value="/etc/opt/ooce/uwsgi/uwsgi.ini" />
                 <propval name="exec"
                          type="astring"
-                         value="/$(PREFIX)/sbin/uwsgi" />
+                         value="/opt/ooce/uwsgi/sbin/uwsgi" />
             </property_group>
 
             <template>
