@@ -72,6 +72,7 @@ build() {
   popd >/dev/null
 
   logcmd cp -r files/uwsgi.ini $DESTDIR/$CONFPATH
+  install_smf ooce files/server-uwsgi.xml
 }
 
 init
@@ -88,7 +89,6 @@ for file in $DESTDIR/$PREFIX/lib/*.so; do
   manifest_finalise $TMPDIR/manifest.$PROG-$basename $OPREFIX
   PKG=$PKG-$basename RUN_DEPENDS_IPS="ooce/server/uwsgi" make_package -seed $TMPDIR/manifest.$PROG-$basename
 done
-install_smf ooce server-uwsgi.xml
 manifest_uniq $TMPDIR/manifest.$PROG-core $TMPDIR/manifest.uwsgi-*
 manifest_finalise $TMPDIR/manifest.$PROG-core $OPREFIX etc
 make_package -seed $TMPDIR/manifest.$PROG-core core.mog
